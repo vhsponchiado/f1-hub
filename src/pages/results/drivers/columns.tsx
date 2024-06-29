@@ -1,10 +1,7 @@
 import React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { Link } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
-import { GiFullMotorcycleHelmet } from "react-icons/gi";
-import { IoConstructOutline } from "react-icons/io5";
+import { LuAlarmClock } from "react-icons/lu";
 
 import CountryFlag from "@/components/ui/country-flag";
 
@@ -15,9 +12,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { getCurrentDate } from "@/utils/functions/functions";
-
-import { ArrowUpDown } from "lucide-react";
 
 interface Driver {
   position: number;
@@ -34,6 +28,7 @@ interface Driver {
   grid: number;
   status: string;
   fastestLapRank: string;
+  fastestLapTime: string;
   constructorId: string;
   constructorUrl: string;
   constructorName: string;
@@ -71,9 +66,21 @@ export const columns: ColumnDef<Driver>[] = [
           <div>
             <CountryFlag nationality={driver.nationality} />
           </div>
-          <span>
-            {`${driver.givenName} ${driver.familyName} #${driver.permanentNumber} ${driver.nationality}`}{" "}
-          </span>
+          <span>{`${driver.givenName} ${driver.familyName}`}</span>
+          {driver.fastestLapRank === "1" ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="rounded bg-purple-700 text-white cursor-pointer hover:bg-purple-500 transition-colors duration-300">
+                    <LuAlarmClock fontSize={24} className="p-1" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="right">{driver.fastestLapTime}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            <> </>
+          )}
         </div>
       );
     },

@@ -35,7 +35,6 @@ export default function SeasonRoundDriversResults() {
 
         setRaceInfo(info);
 
-        console.log(race.Results)
 
         const formattedData =
           race.Results.map(
@@ -54,6 +53,7 @@ export default function SeasonRoundDriversResults() {
               grid: result.grid,
               status: result.status,
               fastestLapRank: result.FastestLap?.rank,
+              fastestLapTime: result.FastestLap?.Time?.time, 
               constructorId: result.Constructor.constructorId,
               constructorUrl: result.Constructor.url,
               constructorName: result.Constructor.name,

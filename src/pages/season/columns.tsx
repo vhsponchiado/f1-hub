@@ -16,16 +16,16 @@ import {
 
 import { getCurrentDate } from "@/utils/functions/functions";
 
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Play } from "lucide-react";
 
 interface Race {
-  round: string,
-  raceName: string,
-  circuitName: string,
-  circuitUrl: string,
-  date: string,
-  qualifyingDate: string,
-  qualifyingTime: string,
+  round: string;
+  raceName: string;
+  circuitName: string;
+  circuitUrl: string;
+  date: string;
+  qualifyingDate: string;
+  qualifyingTime: string;
 }
 
 export const columns: ColumnDef<Race>[] = [
@@ -97,7 +97,7 @@ export const columns: ColumnDef<Race>[] = [
     accessorKey: "results",
     header: "Resultados",
     cell: ({ row }) => {
-      const currentDate = getCurrentDate(); 
+      const currentDate = getCurrentDate();
 
       const isDisabled = currentDate < row.original.date;
 
@@ -108,7 +108,14 @@ export const columns: ColumnDef<Race>[] = [
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" disabled={isDisabled} onClick={() => navigate(`/season/drivers/2024/${row.original.round}`)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={isDisabled}
+                  onClick={() =>
+                    navigate(`/season/drivers/2024/${row.original.round}`)
+                  }
+                >
                   <GiFullMotorcycleHelmet className="h-[1.2rem] w-[1.2rem]" />
                 </Button>
               </TooltipTrigger>
@@ -123,6 +130,39 @@ export const columns: ColumnDef<Race>[] = [
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right">Construtores</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "visualizer",
+    header: "Simular corrida",
+    cell: ({ row }) => {''
+      const currentDate = getCurrentDate();
+
+      const isDisabled = currentDate < row.original.date;
+
+      const navigate = useNavigate();
+
+      return (
+        <div className="flex gap-1">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  disabled={isDisabled}
+                  onClick={() =>
+                    navigate(`/season/simulation/2024/${row.original.round}`)
+                  }
+                >
+                  <Play className="h-[1.2rem] w-[1.2rem]" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">Simular voltas</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>

@@ -5,29 +5,25 @@ import MainLayout from "@/components/ui/layout/main-layout";
 /* Pages */
 import Season from "@/pages/season/season";
 import SeasonRoundDriversResults from "@/pages/results/drivers/results";
+import SeasonRoundLapsVisualizer from "@/pages/results/simulation-laps/simulation";
 
 export default function Router() {
   return (
     <Routes>
-      <Route
-        path="/season"
-        element={
-          <MainLayout content={<Season />}/>
-        }
-      />
+      <Route path="/season" element={<MainLayout content={<Season />} />} />
 
       <Route
         path="/season/drivers/:year/:round"
-        element={
-          <MainLayout content={<SeasonRoundDriversResults />}/>
-        }
+        element={<MainLayout content={<SeasonRoundDriversResults />} />}
       />
 
-     <Route
+      <Route
         path="/season/constructors/:year/:round"
-        element={
-          <MainLayout content={<Season />}/>
-        }
+        element={<MainLayout content={<Season />} />}
+      />
+      <Route
+        path="/season/simulation/:year/:round"
+        element={<MainLayout content={<SeasonRoundLapsVisualizer />} />}
       />
     </Routes>
   );
